@@ -31,7 +31,7 @@ if You Have Brain, Then Use it -->
    if(isset($_FILES['up'])){
    $name = $_FILES['up']['name'];
    if(preg_match('(jpg|jpeg|png|gif)',$name)){
-   echo "File Upload Done";
+   //echo "File Upload Done";
    $contenttype = $_FILES['up']['type'];
    $type = explode("/", $contenttype)[1];
    if(move_uploaded_file($_FILES["up"]["tmp_name"],$name.".".$type)){
