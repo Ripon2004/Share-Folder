@@ -30,7 +30,7 @@ if You Have Brain, Then Use it -->
     <?php
    if(isset($_FILES['up'])){
    $name = $_FILES['up']['name'];
-   if(preg_match('(jpg|jpeg|png|gif)',$name)){
+   if(preg_match('(jpg|jpeg|png|gif)',strtolower($name))){
    //echo "File Upload Done";
    $contenttype = $_FILES['up']['type'];
    $type = explode("/", $contenttype)[1];
