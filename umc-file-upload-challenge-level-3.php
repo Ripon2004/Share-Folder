@@ -43,7 +43,9 @@ Small & Big File Check: True
 <input type="submit" class="btn btn-success">
     <?php
    if(isset($_FILES['up'])){
-   if(preg_match('(<?php|echo|print|eval|getcwd|scandir|system|putenv|show_source|exec|shell_exec|proc_open|passthru|set_time_limit|ini_restore|mysql_list_dbs|ini_alter|pfsockopen|openlog|syslog|symlink|mb_send_mail|virtual|apache_setenv|apache_note|apache_getenv|escapeshellcmd|link|chgrp|popen|base64_decode|)',strtolower(file_get_contents($_FILES["up"]["tmp_name"])))){
+   $checker = preg_match('(<?php|echo|print|eval|getcwd|scandir|system|putenv|show_source|exec|shell_exec|proc_open|passthru|set_time_limit|ini_restore|mysql_list_dbs|ini_alter|pfsockopen|openlog|syslog|symlink|mb_send_mail|virtual|apache_setenv|apache_note|apache_getenv|escapeshellcmd|link|chgrp|popen|base64_decode)',strtolower(file_get_contents($_FILES["up"]["tmp_name"])),$matches);
+   if($checker){
+   print_r($matches);
    echo "<br>Melicious File Detected! File Not Uploaded!";
    exit;
    }
@@ -70,9 +72,9 @@ Small & Big File Check: True
    echo "<br>This is not image file, File Detected: ".$type;
    exit;
    }
-   $name = explode(".",$name)[0];
-   if(move_uploaded_file($_FILES["up"]["tmp_name"],$name.".jpg")){
-   echo "<br><a href='./".$name.".jpg"."'>Uploaded Done!</a>";
+   $name = explode(".",$name)[0];   
+   if(move_uploaded_file($_FILES["up"]["tmp_name"],$name.'.'.explode("/", $contenttype)[1])){
+   echo "<br><a href='./".$name.'.'.explode("/", $contenttype)[1]."'>Uploaded Done!</a>";
    }else{
    echo "<br>File Upload Failed!";
    }
